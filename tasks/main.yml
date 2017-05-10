@@ -19,9 +19,6 @@
     - set_fact:
         ami_image: "{{ ami_search.results[0].ami_id }}"
 
-    - include: encrypt_image.yml
-      tags: [encrypted]
-
     - include: cloudformation.yml
 
     - name: Add new instance to host group
