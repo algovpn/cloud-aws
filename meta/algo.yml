@@ -1,5 +1,6 @@
 algo:
   name: aws
+  type: provider
   arguments:
     - argument: -name
       default: algo
@@ -23,7 +24,7 @@ algo:
         - ca-central-1
         - sa-east-1
       help: 'The AWS Region.'
-      dest: aws_region
+      dest: region
     - argument: -akey
       help: 'AWS Access Key ($AWS_ACCESS_KEY_ID)'
       dest: aws_access_key
