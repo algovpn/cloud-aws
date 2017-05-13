@@ -148,7 +148,7 @@ Resources:
               homeDir: "/home/ubuntu/"
           files:
             /home/ubuntu/.ssh/authorized_keys:
-              content: {{ lookup('file', SSH_keys.public) }}
+              content: {{ ssh_keys.result.pub }}
               mode: "000644"
               owner: "ubuntu"
               group: "ubuntu"

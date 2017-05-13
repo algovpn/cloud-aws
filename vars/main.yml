@@ -6,3 +6,6 @@ cloud_providers:
     image:
       name: "ubuntu-xenial-16.04" # ubuntu-xenial-16.04 / ubuntu-zesty-17.04
       owner: "099720109477"
+
+ssh_keys_name: algo
+ssh_keys_output_path: '~/.algovpn/configs'

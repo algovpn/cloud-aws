@@ -4,6 +4,10 @@
         secret_key: "{{ aws_secret_key | default(lookup('env','AWS_SECRET_ACCESS_KEY'), true) }}"
         stack_name: "{{ aws_server_name | replace('.', '-') }}"
 
+    - name: Generate SSH Keys
+      include_role:
+        name: algovpn.ssh_keys
+
     - name: Locate official AMI for region
       ec2_ami_find:
         aws_access_key: "{{ access_key }}"
@@ -27,7 +31,7 @@
         groupname: vpn-host
         ansible_ssh_user: ubuntu
         ansible_python_interpreter: "/usr/bin/python2.7"
-        ansible_ssh_private_key_file: "{{ SSH_keys.private }}"
+        ansible_ssh_private_key_file: "{{ ssh_keys.result.priv }}"
         cloud_provider: ec2
         ipv6_support: yes
 
@@ -47,13 +51,13 @@
     - name: Ensure the group ec2 exists in the dynamic inventory file
       lineinfile:
         state: present
-        dest: configs/inventory.dynamic
+        dest: '~/.algovpn/configs/inventory.dynamic'
         line: '[ec2]'
 
     - name: Populate the dynamic inventory
       lineinfile:
         state: present
-        dest: configs/inventory.dynamic
+        dest: '~/.algovpn/configs/inventory.dynamic'
         insertafter: '\[ec2\]'
         regexp: "^{{ item.public_ip_address }}.*"
         line: "{{ item.public_ip_address }}"
