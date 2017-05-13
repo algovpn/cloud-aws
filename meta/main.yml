@@ -31,5 +31,6 @@ galaxy_info:
     - algo
     - cloud
 
-dependencies: []
+dependencies:
+  - algovpn.ssh_keys
 
