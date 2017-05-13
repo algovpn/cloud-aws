@@ -33,4 +33,4 @@ galaxy_info:
 
 dependencies:
   - algovpn.ssh_keys
-
+  - algovpn.bootstrap

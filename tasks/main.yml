@@ -48,6 +48,10 @@
         timeout: 320
         state: present
 
+    - name: Bootstrap host
+      include_role:
+        name: algovpn.bootstrap
+
   rescue:
     - debug: var=fail_hint
       tags: always
