@@ -31,38 +31,13 @@
         groupname: vpn-host
         ansible_ssh_user: ubuntu
         ansible_python_interpreter: "/usr/bin/python2.7"
-        ansible_ssh_private_key_file: "{{ ssh_keys.result.priv }}"
+        ansible_ssh_private_key_file: "~/.algovpn/configs/{{ ssh_keys_name }}.pem"
         cloud_provider: ec2
         ipv6_support: yes
 
     - set_fact:
         cloud_instance_ip: "{{ stack.stack_outputs.ElasticIP }}"
 
-    - name: Get EC2 instances
-      ec2_remote_facts:
-        aws_access_key: "{{ access_key }}"
-        aws_secret_key: "{{ secret_key }}"
-        region: "{{ region }}"
-        filters:
-          instance-state-name: running
-          "tag:Environment": Algo
-      register: algo_instances
-
-    - name: Ensure the group ec2 exists in the dynamic inventory file
-      lineinfile:
-        state: present
-        dest: '~/.algovpn/configs/inventory.dynamic'
-        line: '[ec2]'
-
-    - name: Populate the dynamic inventory
-      lineinfile:
-        state: present
-        dest: '~/.algovpn/configs/inventory.dynamic'
-        insertafter: '\[ec2\]'
-        regexp: "^{{ item.public_ip_address }}.*"
-        line: "{{ item.public_ip_address }}"
-      with_items:
-        - "{{ algo_instances.instances }}"
   rescue:
     - debug: var=fail_hint
       tags: always
