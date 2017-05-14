@@ -4,10 +4,6 @@
         secret_key: "{{ aws_secret_key | default(lookup('env','AWS_SECRET_ACCESS_KEY'), true) }}"
         stack_name: "{{ aws_server_name | replace('.', '-') }}"
 
-    - name: Generate SSH Keys
-      include_role:
-        name: algovpn.ssh_keys
-
     - name: Locate official AMI for region
       ec2_ami_find:
         aws_access_key: "{{ access_key }}"
@@ -48,9 +44,6 @@
         timeout: 320
         state: present
 
-    - name: Bootstrap host
-      include_role:
-        name: algovpn.bootstrap
 
   rescue:
     - debug: var=fail_hint
