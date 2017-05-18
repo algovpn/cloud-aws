@@ -2,11 +2,11 @@ algo:
   name: aws
   type: provider
   arguments:
-    - argument: -name
+    - argument: --name
       default: algo
       help: The name of the instance
       dest: aws_server_name
-    - argument: -region
+    - argument: --region
       default: us-east-1
       choices:
         - us-east-1
@@ -25,9 +25,9 @@ algo:
         - sa-east-1
       help: 'The AWS Region.'
       dest: region
-    - argument: -akey
+    - argument: --akey
       help: 'AWS Access Key ($AWS_ACCESS_KEY_ID)'
       dest: aws_access_key
-    - argument: -skey
+    - argument: --skey
       help: 'AWS Secret Key ($AWS_SECRET_ACCESS_KEY)'
       dest: aws_secret_key
