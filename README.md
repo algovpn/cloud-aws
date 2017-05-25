@@ -1,31 +1,40 @@
-Role Name
+algovpn.cloud-aws
 =========
 
-A brief description of the role goes here.
+Adds provider support for AWS to AlgoVPN.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ansible 2.2.0
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Name           | Default Value | Description                        |
+| -------------- | ------------- | -----------------------------------|
+| `aws_server_name` | algo | The name of the VPN instance. |
+| `region` | us-east-1 | The AWS region to deploy the instance in. |
+| `aws_access_key` |  | Your AWS Access Key. |
+| `aws_secret_key` |  | Your AWS Secret Key. |
+| `cloud_providers.ec2.size`| t2.micro|  The EC2 instance size to be used. |
+| `ssh_keys_output_path`| ~/.algovpn/configs | Output path for ssh keys.|
+| `ec2_vpc_nets.cidr_block`| 172.16.0.0/16 | add additional paths to the user's `PATH` variable (default is empty).|
+| `ec2_vpc_nets.subnet_cidr`| 172.16.254.0/23 | add additional paths to the user's `PATH` variable (default is empty).|
 
 Dependencies
 ------------
+All cloud roles should use the algovpn.ssh_keys helper role to manage
+SSH keys.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+algovpn.ssh_keys
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: localhost
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: algovpn.cloud-aws, aws_server_name: algoforme }
 
 License
 -------
@@ -35,4 +44,4 @@ MIT
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+AlgoVPN
